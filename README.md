@@ -61,16 +61,23 @@ Pick your stopId and use it with this module to get the following information fo
 
 ## KCSCApiReturn Class
 
-There is a class created in the module that stores the contents of the return 
+There is a class created in the module that stores the contents of the return. There are a few values returned by the API that I am not quite
+sure of their intended use but I have included them just in case someone finds them useful.
 
-| Member Name     | Data Type | Description                                                                           |
-| ---------     | --------- | ------------------------------------------------                                      |
-| stopId        | int       | the set stopId for the given request                                                  |
-| predictIndex  | int       | the offset from the next car (1 would be the car after the next car)                  | 
-| stopName      | str       | the API's name for the stop                                                           |
-| nextTime      | float     | a timestamp in UNIX Epoch time to do math with (in Kansas City Time)                  |
-| nextTimeDT    | datetime  | a datetime object that states when the next train is expected                         |
-| nextTime12    | str       | when the next train is expected in a formatted 12 hour clock (in Kansas City Time)    |
-| nextSecs      | int       | a nice small integer to do more basic math with                                       |
-| nextOccupancy | int       | percentage occupancy of the next car                                                  |
-| isLate        | bool      | a boolean to indicate if the next train is late, useful for indicators                |
+| Member Name        | Data Type | Description                                                                           |
+| ---------          | --------- | ------------------------------------------------                                      |
+| stopId             | int       | the set stopId for the given request                                                  |
+| predictIndex       | int       | the offset from the next car (1 would be the car after the next car)                  | 
+| stopName           | str       | the API's name for the stop                                                           |
+| nextTime           | float     | a timestamp in UNIX Epoch time to do math with (in Kansas City Time)                  |
+| nextTimeDT         | datetime  | a datetime object that states when the next train is expected                         |
+| nextTime12         | str       | when the next train is expected in a formatted 12 hour clock (in Kansas City Time)    |
+| nextSecs           | int       | a nice small integer to do more basic math with                                       |
+| nextMin            | int       | a nice small integer to do more basic math with (but in minutes)                      |
+| nextDeparture      | b00p      | boolean that seems to change right as vehicle departs but I am unsure                 |
+| nextOccupancy      | int       | percentage occupancy of the next car                                                  |
+| nextOccupancyCount | int       | number of riders in the next car                                                      |
+| nextOccupancyStatus| str       | string describing occupancy of next car                                               |
+| nextTripId         | int       | unique identifier for the segment of the next car. Not sure of usage but it is there  |
+| nextVehicleId      | int       | Unique identifier for specific vehicle. Useful for generating a map                   |
+| isLate             | bool      | a boolean to indicate if the next train is late, useful for indicators                |
