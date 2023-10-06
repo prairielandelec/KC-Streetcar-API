@@ -2,7 +2,8 @@ import requests
 from datetime import datetime
 
 class KCSCApiReturn:
-    def __init__(self, stopId = 0, predictIndex = 0, stopName=None, nextTime=0, nextTimeDT=0, nextTime12=0, nextSecs=0, nextOccupancy=0, isLate=False):
+    def __init__(self, stopId = 0, predictIndex = 0, stopName=None, nextTime=0, nextTimeDT=0, nextTime12=0, nextSecs=0, nextMin=0,
+                 nextDeparture=False, nextOccupancy=0, nextOccupancyCount=0, nextOccupancyStatus=None, nextTripId=0, nextVehicleId=0, isLate=False):
         self.stopId = 0
         self.predictIndex = 0
         self.stopName = None
@@ -10,7 +11,13 @@ class KCSCApiReturn:
         self.nextTimeDT = 0
         self.nextTime12 = 0
         self.nextSecs = 0
+        self.nextMin = 0
+        self.nextDeparture = False
         self.nextOccupancy = 0
+        self.nextOccupancyCount = 0
+        self.nextOccupancyStatus = None
+        self.nextTripId=0
+        self.nextVehicleId = 0
         self.isLate = False
 
 def getNow(apistuct):
@@ -25,7 +32,6 @@ def getNow(apistuct):
 
     if "errorCode" in response:
         rc = response["errorCode"]
-        print(rc)
         return rc
     else:
         data = response["data"]["predictionsData"][0]
@@ -48,7 +54,12 @@ def getNow(apistuct):
         apistuct.nextTimeDT = datetime.fromtimestamp(apistuct.nextTime)
         apistuct.nextTime12 = apistuct.nextTimeDT.strftime("%I:%M %p")
         apistuct.nextSecs = data['destinations'][0]['predictions'][int(apistuct.predictIndex)]['sec']
+        apistuct.nextMin = data['destinations'][0]['predictions'][int(apistuct.predictIndex)]['min']
         apistuct.nextOccupancy = data['destinations'][0]['predictions'][int(apistuct.predictIndex)]['occupancyPercent']
+        apistuct.nextOccupancyCount = data['destinations'][0]['predictions'][int(apistuct.predictIndex)]['occupancyCount']
+        apistuct.nextOccupancyStatus = data['destinations'][0]['predictions'][int(apistuct.predictIndex)]['occupancyStatus']
+        apistuct.nextTripId = data['destinations'][0]['predictions'][int(apistuct.predictIndex)]['tripId']
+        apistuct.nextVehicleId = data['destinations'][0]['predictions'][int(apistuct.predictIndex)]['vehicleId']
         if apistuct.nextSecs < 0:
             apistuct.isLate = True
         return 0
