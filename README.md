@@ -22,6 +22,14 @@ stop1 = KCSCApi.KCSCApiReturn() #creating an object of class type KCSCApiReturn 
 stop1.stopId = 1601 #this is the stop ID for River Market West Southbound
 ```
 
+There is also a "predictIndex" member of the class that is used to access future predictions. The API returns three predictions and by default this module will return the next prediction. If you would like to get one of the two additional predictions you can define it before you run the getNow method and the module will retrieve the prediction from that index. In example.py this is used to provide the next train if the prediction at index 0 is less than 120 seconds away as it is unlikely you would catch that train. This value is 0 indexed.
+
+```python
+stop1secondTrain = KCSCApi.KCSCApiReturn() #creating an object of class type KCSCApiReturn to store data
+stop1secondTrain.stopId = 1601 #same stopId at the previous example
+stop1secondTrain.predictIndex = 1 #but this time we grab the next prediction
+```
+
 After you have created an object to store the data and provided a stop ID for that object, run the getNow function to pull the data in from the API and dump it into the individual data points. The function will return a 0 on success and the relevant HTTP error code or API error code upon failure
 ```python
 rc = KCSCApi.getNow(stop1)
@@ -32,6 +40,20 @@ To grab any of the data from the object, refer to the [class table](#kcscapiretu
     print("Stop : " + stop1.stopName)           #this will print the name of the stop for given stopId
     print()                                     #new line
     print("Next car at: " + stop1.nextTime12)   #this will return the time of the next car in 12 hour time
+```
+
+So a full instantiation and request would look like this:
+```python
+    stop1 = KCSCApi.KCSCApiReturn() #create a new object with type KCSCApiReturn
+    stop1.stopId = 1601             #set the stopId to be River Market West Southbound
+    rc = KCSCApi.getNow(stop1)      #get the payload for the given stopId
+
+    if rc != 0:                     #if we do not succeed, print the error and escape
+        print(rc)
+    else:                           #if we succeed, print all of the data in the object formatted
+        print("Stop : " + stop1.stopName)
+        print()
+        print("Next car at: " + stop1.nextTime12)
 ```
 
 
