@@ -96,7 +96,7 @@ sure of their intended use but I have included them just in case someone finds t
 | nextTime12         | str       | when the next train is expected in a formatted 12 hour clock (in Kansas City Time)    |
 | nextSecs           | int       | a nice small integer to do more basic math with                                       |
 | nextMin            | int       | a nice small integer to do more basic math with (but in minutes)                      |
-| nextDeparture      | b00p      | boolean that seems to change right as vehicle departs but I am unsure                 |
+| nextDeparture      | bool      | boolean that seems to change right as vehicle departs but I am unsure                 |
 | nextOccupancy      | int       | percentage occupancy of the next car                                                  |
 | nextOccupancyCount | int       | number of riders in the next car                                                      |
 | nextOccupancyStatus| str       | string describing occupancy of next car                                               |
